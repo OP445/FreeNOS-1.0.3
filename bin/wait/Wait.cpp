@@ -25,8 +25,8 @@
 Wait::Wait(int argc, char **argv)
     : POSIXApplication(argc, argv)
 {
-    parser().setDescription("Stop executing for some time");
-    parser().registerPositional("SECONDS", "Stop executing for the given number of seconds");
+    parser().setDescription("Wait for a child process to change its state to either exit or terminate");
+    parser().registerPositional("PID", "wait for the given child process to change its state");
 }
 
 Wait::~Wait()
@@ -38,9 +38,9 @@ Wait::Result Wait::exec()
     int sec = 0;
 
     // Convert input to seconds
-    if ((sec = atoi(arguments().get("SECONDS"))) <= 0)
+    if ((sec = atoi(arguments().get("PID"))) <= 0)
     {
-        ERROR("invalid sleep time `" << arguments().get("SECONDS") << "'");
+        ERROR("invalid sleep time `" << arguments().get("PID") << "'");
         return InvalidArgument;
     }
 
