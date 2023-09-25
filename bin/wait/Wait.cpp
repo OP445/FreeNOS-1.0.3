@@ -47,6 +47,8 @@ Wait::Result Wait::exec()
         */ 
     }
 
+    // add a way to wait for the input pid to wait for that process to complete y using waitpid()
+    // add a way to handle if the input pid is valid BUT is not the child process (one way is to use ProcessClient:: Info)
 
     // Done
     return Success;
