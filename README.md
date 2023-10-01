@@ -1,13 +1,9 @@
 About {#mainpage}
+=====
 
-Names: Kareem Elaasar, Gregorious Avip, Parth Singh
+Names: Kareem Elaasar, Gregorius Avip, Parth Singh
 
 Link: youtube.com
-
-
-
-
-=====
 
 FreeNOS (Free Niek's Operating System) is an experimental microkernel based
 operating system for learning purposes written in C++. You may use the code
