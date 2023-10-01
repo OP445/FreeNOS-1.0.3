@@ -62,9 +62,17 @@ Wait::Result Wait::exec()
     pid_t current_ppid = getppid(); //get the current process parent PID
     pid_t target_ppid = info.kernelState.parent; //get the input process Parent PID
 
-    // add a way to wait for the input pid to wait for that process to complete using waitpid()
-    // add a way to handle if the input pid is valid BUT is not the child process (one way is to use ProcessClient:: Info)
-
+    if(current_ppid == target_ppid){   //if code executed by the parent
+        if(waitpid(pid, &exit_stat, 0) == (pid_t) -1){   //waitpid returns -1 if an error occurs
+            ERROR("failed to wait: " << strerror(errno));
+            return IOError;
+        }
+    }
+    else{
+        ERROR("PID " << arguments().get("PID") << " is not a child process of this shell");
+        return InvalidArgument;
+    }
+    
     // Done
     return Success;
 }
