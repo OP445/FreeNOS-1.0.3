@@ -57,6 +57,11 @@ Wait::Result Wait::exec()
     ProcessClient proc;
     proc.processInfo(pid, info);    //get the input process ID info
 
+    int exit_stat;
+    
+    pid_t current_ppid = getppid(); //get the current process parent PID
+    pid_t target_ppid = info.kernelState.parent; //get the input process Parent PID
+
     // add a way to wait for the input pid to wait for that process to complete using waitpid()
     // add a way to handle if the input pid is valid BUT is not the child process (one way is to use ProcessClient:: Info)
 
