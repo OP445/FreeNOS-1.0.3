@@ -72,7 +72,8 @@ Wait::Result Wait::exec()
         ERROR("PID " << arguments().get("PID") << " is not a child process of this shell");
         return InvalidArgument;
     }
-    
+
     // Done
+    printf("Done\t\twait %d\n", pid);
     return Success;
 }
