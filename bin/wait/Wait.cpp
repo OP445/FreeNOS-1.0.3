@@ -57,7 +57,7 @@ Wait::Result Wait::exec()
     ProcessClient proc;
     proc.processInfo(pid, info);    //get the input process ID info
 
-    // add a way to wait for the input pid to wait for that process to complete y using waitpid()
+    // add a way to wait for the input pid to wait for that process to complete using waitpid()
     // add a way to handle if the input pid is valid BUT is not the child process (one way is to use ProcessClient:: Info)
 
     // Done
