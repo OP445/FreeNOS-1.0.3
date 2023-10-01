@@ -46,6 +46,10 @@ Wait::Result Wait::exec()
             This makes the valid input 0 becomes invalid
         */ 
     }
+    if(pid == getpid()){    //input PID is the current PID
+        ERROR("PID " << arguments().get("PID") << " is not a child process of this shell");
+        return InvalidArgument;
+    }
 
     // add a way to wait for the input pid to wait for that process to complete y using waitpid()
     // add a way to handle if the input pid is valid BUT is not the child process (one way is to use ProcessClient:: Info)
