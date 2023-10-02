@@ -5,6 +5,11 @@ Names: Kareem Elaasar, Gregorius Avip,  Parth Singh
 
 Video Link: https://youtu.be/7-NrX2Bm3vc
 
+
+FreeNOS with extended function of the wait command
+
+
+
 FreeNOS (Free Niek's Operating System) is an experimental microkernel based
 operating system for learning purposes written in C++. You may use the code
 as you wish under the terms of the GPLv3.
@@ -465,7 +470,7 @@ where it computes the same number of primes:
 
     (localhost) / # time prime 2000000
 
-Additionally, it is possible on the Allwinner H2+/H3 (arm/sunxi-h3) target to start MPI programs
+Additionally, it is possible on the Allwinner H2+/H3 (arm/sunxi-h3) target to start MPI programs4
 via the network on multiple nodes running FreeNOS. You can do that by starting the corresponding
 MPI program which is compiled on your host OS and uses the MPI library host code to communicate with
 the remote nodes via ethernet. You need to provide a configuration file that specifies the list of
