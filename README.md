@@ -1,7 +1,7 @@
 About {#mainpage}
 =====
 
-Names: Kareem Elaasar, Gregorius Avip, Parth Singh
+Names: Kareem Elaasar, Gregorius Avip,  Parth Singh
 
 Link: youtube.com
 
