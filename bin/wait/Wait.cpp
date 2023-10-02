@@ -49,8 +49,8 @@ Wait::Result Wait::exec()
         */ 
     }
     if(pid == getpid()){    //input PID is the current PID
-        ERROR("PID " << arguments().get("PID") << " is not a child process of this shell");
-        return InvalidArgument;
+        printf("Done\t\twait %d\n", pid);
+        return Success;
     }
 
     ProcessClient::Info info;
