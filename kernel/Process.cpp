@@ -23,20 +23,26 @@
 #include "Process.h"
 #include "ProcessEvent.h"
 
-Process::Process(ProcessID id, Address entry, bool privileged, const MemoryMap &map)
-    : m_id(id), m_map(map), m_shares(id)
+Process::Process(ProcessID id, Address entry, bool privileged, const MemoryMap &map, PriorityLevel initialPriority)
+    : m_id(id),
+      m_map(map),
+      m_shares(id),
+      m_state(Stopped),
+      m_parent(0),
+      m_waitId(0),
+      m_waitResult(0),
+      m_wakeups(0),
+      m_entry(entry),
+      m_privileged(privileged),
+      m_memoryContext(ZERO),
+      m_kernelChannel(ZERO)
 {
-    m_state         = Stopped;
-    m_parent        = 0;
-    m_waitId        = 0;
-    m_waitResult    = 0;
-    m_wakeups       = 0;
-    m_entry         = entry;
-    m_privileged    = privileged;
-    m_memoryContext = ZERO;
-    m_kernelChannel = ZERO;
     MemoryBlock::set(&m_sleepTimer, 0, sizeof(m_sleepTimer));
+
+    // Initialize the priority field
+    m_priorityLevel = initialPriority;
 }
+
 
 Process::~Process()
 {

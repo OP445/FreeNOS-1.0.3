@@ -34,7 +34,7 @@ ProcessList::Result ProcessList::exec()
     String out;
 
     // Print header with the new "Priority" column
-    out << "ID  PARENT  USER GROUP STATUS     CMD                         PRIORITY\r\n";
+    out << "ID  PARENT  USER GROUP STATUS     CMD          PRIORITY\r\n";
 
     // Loop processes
     for (ProcessID pid = 0; pid < ProcessClient::MaximumProcesses; pid++)
