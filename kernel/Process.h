@@ -90,7 +90,7 @@ class Process
      * @param privileged If true, the process has unlimited access to hardware.
      * @param map Memory map to use
      */
-    Process(ProcessID id, Address entry, bool privileged, const MemoryMap &map);
+    Process(ProcessID id, Address entry, bool privileged, const MemoryMap &map, PriorityLevel m_priorityLevel);
 
     /**
      * Set the priority level of the process.
