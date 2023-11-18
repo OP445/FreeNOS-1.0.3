@@ -107,6 +107,19 @@ void Process::setParent(ProcessID id)
     m_parent = id;
 }
 
+void Process::setPriority(PriorityLevel priority)
+{
+    // Ensure that the priority level is within the valid range
+    m_priorityLevel = priority;
+}
+
+int Process::getPriority() const
+{
+    // Return the priority level of the process
+    // You need to define how the priority is stored or calculated for each process
+    return m_priority;
+}
+
 Process::Result Process::wait(ProcessID id)
 {
     if (m_state != Ready)

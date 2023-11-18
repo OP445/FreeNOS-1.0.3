@@ -71,6 +71,15 @@ class Process
         Stopped
     };
 
+    enum PriorityLevel
+    {
+        Low = 1,
+        BelowNormal,
+        Normal,
+        AboveNormal,
+        High
+    };
+
   public:
 
     /**
@@ -82,6 +91,26 @@ class Process
      * @param map Memory map to use
      */
     Process(ProcessID id, Address entry, bool privileged, const MemoryMap &map);
+
+    /**
+     * Set the priority level of the process.
+     *
+     * @param priority Priority level to set (Low, BelowNormal, Normal, AboveNormal, High).
+     */
+    void setPriority(PriorityLevel priority);
+
+    /**
+     * Get the priority level of the process.
+     *
+     * @return Priority level
+     */
+    int getPriority() const;
+    /**
+     * Get the priority level of the process.
+     *
+     * @return Priority level.
+     */
+    PriorityLevel getPriority() const;
 
     /**
      * Destructor function.
@@ -160,6 +189,11 @@ class Process
      * @return Result code
      */
     virtual Result initialize();
+
+    // ... (Existing protected members remain unchanged) ...
+
+    /** Priority level of the process (Low, BelowNormal, Normal, AboveNormal, High) */
+    PriorityLevel m_priorityLevel;
 
     /**
      * Restart execution at the given entry point.

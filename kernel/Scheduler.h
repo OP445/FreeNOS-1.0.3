@@ -60,6 +60,8 @@ class Scheduler
      */
     Size count() const;
 
+    Size getPriority(Process *proc) const;
+
     /**
      * Add a Process to the run schedule.
      *

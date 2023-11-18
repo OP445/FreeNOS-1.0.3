@@ -45,7 +45,8 @@ ProcessManager::~ProcessManager()
 Process * ProcessManager::create(const Address entry,
                                  const MemoryMap &map,
                                  const bool readyToRun,
-                                 const bool privileged)
+                                 const bool privileged,
+                                 const u8 priorityLevel)
 {
     Size pid = 0;
 

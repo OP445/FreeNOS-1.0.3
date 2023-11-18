@@ -66,15 +66,32 @@ Scheduler::Result Scheduler::dequeue(Process *proc, bool ignoreState)
     return InvalidArgument;
 }
 
-Process * Scheduler::select()
+// Add the implementation of getPriority
+Size Scheduler::getPriority(Process *proc) const
+{
+    // Implement the logic to retrieve the priority of the process
+    // This depends on the implementation of the Process class
+    // Replace PRIORITY_METHOD with the actual method to get priority from the Process class
+    return proc->getPriority();
+}
+
+// Modify the select method to sort the queue based on priority
+Process *Scheduler::select()
 {
     if (m_queue.count() > 0)
     {
+        // Sort the queue based on priority before selecting the next process
+        m_queue.sort([this](const Process *a, const Process *b) {
+            // Sort in descending order of priority
+            return getPriority(a) > getPriority(b);
+        });
+
         Process *p = m_queue.pop();
         m_queue.push(p);
 
         return p;
     }
 
-    return (Process *) NULL;
+    return (Process *)NULL;
 }
+
