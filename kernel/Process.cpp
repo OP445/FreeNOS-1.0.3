@@ -123,7 +123,7 @@ int Process::getPriority() const
 {
     // Return the priority level of the process
     // You need to define how the priority is stored or calculated for each process
-    return m_priority;
+    return  m_priorityLevel;
 }
 
 Process::Result Process::wait(ProcessID id)
