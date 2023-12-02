@@ -1,62 +1,68 @@
-// renice.cpp
-
-#include <Types.h>
-#include <Macros.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <errno.h>
 #include <unistd.h>
+
+// Renice header(C:/FreeNOS-1.0.3/bin/renice/Renice.h)
+#include "Renice.h"
+
+// Libary implementation
+// Renice system header(C:/FreeNOS-1.0.3/lib/libposix/sys/renice/Renice.h)
+#include "sys/renice.h"
+// Process client header(C:/FreeNOS-1.0.3/lib/libruntime/ProcessClient.h)
 #include <ProcessClient.h>
-#include <renice.h>
 
-class Renice : public POSIXApplication
+// Declared variables within the scope
+int newPriority;
+int processID;
+
+Renice::Renice(int argc, char** argv) : POSIXApplication(argc, argv)
 {
-public:
-    Renice(int argc, char **argv)
-        : POSIXApplication(argc, argv)
-    {
-        parser().setDescription("Change the priority level of a process");
-        parser().addPositionalArgument("pid", "Process ID", Argument::Required);
-        parser().addPositionalArgument("priority", "New priority level (1 to 5)", Argument::Required);
+	parser().setDescription("Renice for a state change within the process");
+    parser().registerPositional("Priority", "The current set priority of the process");
+	parser().registerPositional("PID", "The Process ID of the named process");
+	parser().registerFlag('n', "priority", "Parameter that sets a new priority to the process");
+    newPriority = atoi(argv[2]);
+    processID = atoi(argv[3]);
+}
+
+Renice::~Renice()
+{
+	// Nothing
+}
+
+// Execution method, performs system call on renicePID using user-provided Process ID.
+Renice::Result Renice::exec()
+{
+    printf("\nProcess ID is: %d\n", processID);
+    printf("\nNew set Priority is: %d\n", newPriority);
+    bool result;
+    ProcessClient process;
+
+    // If priority is set less than 1 or greater than 5 (invalid)
+    if (newPriority < 1 || newPriority > 5)
+	{
+        result = false;
+        printf("\nPriority value of %d is invalid. ", newPriority);
+    }
+	// If check is false (valid)
+    else
+	{
+        process.setPriority(processID, newPriority);
+        result = true;
+        printf("\nPriority value of %d is valid. ", newPriority);
+    }
+    
+    // Print result prompt after check
+    if (result == true)
+	{
+        printf("Process %d priority has now been changed.\n", processID);
+    }
+    else
+	{
+        printf("Process %d priority has NOT been changed.\n", processID);
     }
 
-    Result exec() override
-    {
-        const ProcessClient process;
-
-        // Retrieve arguments
-        int pid = atoi(parser().positionals()[0]);
-        int newPriority = atoi(parser().positionals()[1]);
-
-        // Check if the priority is within the valid range (1 to 5)
-        if (newPriority < 1 || newPriority > 5)
-        {
-            fprintf(stderr, "Error: Priority level must be between 1 and 5.\n");
-            return InvalidArgument;
-        }
-
-        // Change the priority of the process
-        ProcessClient::Result result = process.setPriority(pid, newPriority);
-
-        // Check the result and display appropriate messages
-        if (result == ProcessClient::Success)
-        {
-            printf("Priority of process %d changed to %d.\n", pid, newPriority);
-            return Success;
-        }
-        else if (result == ProcessClient::NoSuchProcess)
-        {
-            fprintf(stderr, "Error: No such process with ID %d.\n", pid);
-        }
-        else
-        {
-            fprintf(stderr, "Error: Unable to change priority of process %d.\n", pid);
-        }
-
-        return UnknownError;
-    }
-};
-
-int main(int argc, char **argv)
-{
-    Renice reniceApp(argc, argv);
-    return reniceApp.run();
+    return Success;
 }
