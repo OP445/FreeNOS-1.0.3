@@ -1,7 +1,5 @@
-// renice.h
-
-#ifndef __BIN_RENICE_RENICE_H
-#define __BIN_RENICE_RENICE_H
+#ifndef __BIN_Renice_Renice_H
+#define __BIN_Renice_Renice_H
 
 #include <POSIXApplication.h>
 
@@ -10,26 +8,32 @@
  * @{
  */
 
-/**
- * Change the priority level of a process.
- */
+ /**
+  * Stop executing for some time.
+  */
 class Renice : public POSIXApplication
 {
 public:
+
     /**
      * Constructor
      *
      * @param argc Argument count
      * @param argv Argument values
      */
-    Renice(int argc, char **argv);
+    Renice(int argc, char** argv);
+
+    /**
+     * Destructor
+     */
+    virtual ~Renice();
 
     /**
      * Execute the application.
      *
      * @return Result code
      */
-    Result exec() override;
+    virtual Result exec();
 };
 
 /**
