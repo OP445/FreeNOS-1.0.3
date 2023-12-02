@@ -1,4 +1,10 @@
 Names: Kareem Elaasar, Parth Singh
+VIdeo: https://youtu.be/4ypt_15c0BU
+
+Contributions: 
+Kareem worked on the ps -l command and creating the video and demonstrating the commands running.
+Parth worked on the renice command
+
 
 About {#mainpage}
 =====
