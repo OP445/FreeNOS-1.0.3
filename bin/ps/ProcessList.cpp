@@ -1,3 +1,20 @@
+/*
+ * Copyright (C) 2015 Niek Linnenbank
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #include <Types.h>
 #include <Macros.h>
 #include <stdio.h>
@@ -8,25 +25,16 @@
 ProcessList::ProcessList(int argc, char **argv)
     : POSIXApplication(argc, argv)
 {
-    // Display output list
     parser().setDescription("Output system process list");
-    // Display long list of priority levels
-    parser().registerFlag('l', "priority", "Lists priority levels of all processes");
 }
 
 ProcessList::Result ProcessList::exec()
 {
     const ProcessClient process;
     String out;
+
     // Print header with the new "Priority" column
-    if (arguments().get("priority"))
-    {
-         out << "ID  PARENT  USER GROUP STATUS CMD   PRIORITY\r\n";
-    }
-    else {
-        
-    out << "ID  PARENT  USER GROUP STATUS     CMD\r\n";
-    }
+    out << "ID  PARENT  USER GROUP STATUS     CMD          PRIORITY\r\n";
 
     // Loop processes
     for (ProcessID pid = 0; pid < ProcessClient::MaximumProcesses; pid++)
@@ -37,23 +45,14 @@ ProcessList::Result ProcessList::exec()
         if (result == ProcessClient::Success)
         {
             DEBUG("PID " << pid << " state = " << *info.textState);
+
             // Output a line with the new "Priority" column
-            if (arguments().get("priority"))
-                char line[128];
-                snprintf(line, sizeof(line),
-                        "%3d %9d %4d %5d %10s %32s\r\n",
-                        pid, info.kernelState.priority, info.kernelState.parent,
-                        0, 0, *info.textState, *info.command, info.priority);
-                out << line;
-            else
-            {
-                char line[128];
-                snprintf(line, sizeof(line),
-                        "%3d %7d %4d %5d %10s %32s\r\n",
-                        pid, info.kernelState.parent,
-                        0, 0, *info.textState, *info.command, info.priority);
-                out << line;
-            }
+            char line[128];
+            snprintf(line, sizeof(line),
+                    "%3d %7d %4d %5d %10s %32s %8d\r\n",
+                     pid, info.kernelState.parent,
+                     0, 0, *info.textState, *info.command, info.priority);
+            out << line;
         }
     }
 
