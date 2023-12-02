@@ -3,7 +3,14 @@ VIdeo: https://youtu.be/4ypt_15c0BU
 
 Contributions: 
 Kareem worked on the ps -l command and creating the video and demonstrating the commands running.
-Parth worked on the renice command
+Parth worked on the renice command and implemented the sc command.
+
+Comments:
+
+FreeNOS with process priority scheduling implementation.
+
+Updated ps application, added enum priority levels 1-5.
+Implemented sc and renice applications. Made the appropriate changes to the library and Kernal directories.
 
 
 About {#mainpage}
