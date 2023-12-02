@@ -6,7 +6,11 @@ Names: Kareem Elaasar, Gregorius Avip,  Parth Singh
 Video Link: https://youtu.be/7-NrX2Bm3vc
 
 
-FreeNOS with extended function of the wait command
+FreeNOS with process priority scheduling implementation.
+
+Updated ps application, added enum priority levels 1-5.
+Implemented sc and renice applications. Made the appropriate changes to the library and Kernal directories.
+
 
 
 
