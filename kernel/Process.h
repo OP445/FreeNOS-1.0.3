@@ -71,6 +71,14 @@ class Process
         Stopped
     };
 
+    // Setting low to high priority priority level from 1-5 
+    enum PriorityLevel
+    {
+        Min = 1,
+        Default = 3,
+        Max = 5
+    };
+
   public:
 
     /**
@@ -111,6 +119,16 @@ class Process
      * Get wait result
      */
     uint getWaitResult() const;
+
+    /* 
+     * Fecthes the priority of process
+     */
+    PriorityLevel getPriority();
+
+    /*
+     * Sets the priority of a process to our varible
+     */
+    bool setPriority(int newPriority);
 
     /**
      * Get process shares.
@@ -258,6 +276,9 @@ class Process
     /** Wait exit result of the other Process. */
     uint m_waitResult;
 
+    /** Priority level of the process */
+    PriorityLevel m_priority;
+    
     /** Privilege level */
     bool m_privileged;
 
